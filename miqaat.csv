@@ -1,0 +1,18 @@
+# Miqaat list. One line per miqaat: month,day,end_day,name,year
+# month = Misri month number (1 Muharram ... 12 Zilhaj), day = Misri day.
+# end_day: fill only for a range of days (e.g. 1 to 10). year: leave empty to repeat every year.
+# Lines starting with # are ignored. Edit freely, then run: python3 build_misri.py
+# This starter list has only widely observed dates. Add Urus, Syedna miladat and other
+# community miqaat from your official calendar below, and check each line against it.
+month,day,end_day,name,year
+1,1,10,Ashara Mubaraka,
+1,10,,Ashura - Shahadat of Imam Husain,
+2,20,,Chehlum (Arbaeen),
+3,12,,Milad of Prophet Muhammad,
+7,13,,Milad of Imam Ali,
+9,1,,Shehrullah begins (1 Ramadan),
+9,21,,Shahadat of Imam Ali,
+10,1,,Eid al-Fitr,
+12,9,,Day of Arafah,
+12,10,,Eid al-Adha,
+12,18,,Eid-e-Ghadeer,

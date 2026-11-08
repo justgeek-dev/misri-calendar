@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misri Calendar by Mohammed Umrethwala</title>
+<meta name="description" content="Subscribe to the Misri calendar in iPhone or Google Calendar. The Misri date on every day, plus miqaat.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%99%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #EEF1F4;
+    --ink: #14213D;
+    --muted: #46536B;
+    --accent: #E3A33A;
+    --btn-bg: #14213D;
+    --btn-ink: #FFFFFF;
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0E1626;
+      --ink: #F1EFE8;
+      --muted: #AAB4C4;
+      --accent: #F0B54A;
+      --btn-bg: #F1EFE8;
+      --btn-ink: #0E1626;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0E1626;
+    --ink: #F1EFE8;
+    --muted: #AAB4C4;
+    --accent: #F0B54A;
+    --btn-bg: #F1EFE8;
+    --btn-ink: #0E1626;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  .page {
+    position: relative;
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: clamp(2rem, 6vw, 4.5rem) clamp(1.25rem, 5vw, 3rem) 2.5rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .moon {
+    position: absolute;
+    top: clamp(1rem, 4vw, 3rem);
+    right: clamp(-3rem, -2vw, 0rem);
+    width: clamp(6.5rem, 26vw, 17rem);
+    height: auto;
+    color: var(--accent);
+    pointer-events: none;
+  }
+
+  main { margin-top: clamp(4rem, 14vw, 9rem); position: relative; }
+
+  h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(3.4rem, 14vw, 9rem);
+    line-height: 0.94;
+    letter-spacing: -0.025em;
+  }
+  .by {
+    margin: 1.25rem 0 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.15rem, 3.4vw, 1.6rem);
+    color: var(--muted);
+  }
+  .lede {
+    margin: 2rem 0 0;
+    max-width: 34rem;
+    font-size: clamp(1.05rem, 2.6vw, 1.25rem);
+    color: var(--muted);
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 720px) {
+    .actions { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  }
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 5rem;
+    padding: 1rem 1.5rem;
+    border: 3px solid var(--btn-bg);
+    border-radius: 1rem;
+    font: 700 clamp(1.15rem, 3.2vw, 1.4rem)/1.2 var(--sans);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.12s ease;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+  .btn-primary { background: var(--btn-bg); color: var(--btn-ink); }
+  .btn-secondary { background: transparent; color: var(--ink); }
+
+  .other {
+    margin-top: 2rem;
+    font-size: 0.98rem;
+    color: var(--muted);
+  }
+  .other code {
+    display: inline-block;
+    margin: 0.35rem 0.5rem 0.35rem 0;
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.4rem;
+    background: color-mix(in srgb, var(--ink) 9%, transparent);
+    color: var(--ink);
+    font: 0.95rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    word-break: break-all;
+  }
+  .copy {
+    font: 600 0.95rem var(--sans);
+    color: var(--ink);
+    background: none;
+    border: 2px solid var(--muted);
+    border-radius: 0.5rem;
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+  }
+  .copy:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+  footer {
+    margin-top: auto;
+    padding-top: 3.5rem;
+    font-size: 0.88rem;
+    color: var(--muted);
+    max-width: 40rem;
+  }
+  footer p { margin: 0.25rem 0; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <svg class="moon" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M138 22a82 82 0 1 0 38 148A96 96 0 0 1 138 22z"/>
+    <path fill="currentColor" d="M160 58l4.5 11.5L176 74l-11.500 4.500L160 90l-4.500-11.500L144 74l11.500-4.500z"/>
+  </svg>
+
+  <main>
+    <h1>Misri<br>Calendar</h1>
+    <p class="by">by Mohammed Umrethwala</p>
+    <p class="lede">The Misri date on every day, plus miqaat, inside the calendar app you already use.</p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="webcal://calendar.justgeek.dev/misri.ics">Add to iPhone calendar</a>
+      <a class="btn btn-secondary" href="https://calendar.google.com/calendar/r?cid=webcal%3A%2F%2Fcalendar.justgeek.dev%2Fmisri.ics">Add to Google Calendar</a>
+    </div>
+
+    <p class="other">
+      Another calendar app? Copy this link and add it as a subscription.<br>
+      <code id="link">https://calendar.justgeek.dev/misri.ics</code>
+      <button class="copy" id="copy" type="button">Copy link</button>
+    </p>
+  </main>
+
+  <footer>
+    <p>Dates follow the Misri (Fatimid) calendar. Miqaat come from Mumineen.org.</p>
+    <p>New dates arrive on their own. To remove it, delete the subscription in your calendar settings.</p>
+  </footer>
+</div>
+
+<script>
+  (function () {
+    var btn = document.getElementById("copy");
+    var link = document.getElementById("link").textContent;
+    btn.addEventListener("click", function () {
+      function done(ok) {
+        btn.textContent = ok ? "Link copied" : "Press and hold the link to copy";
+        setTimeout(function () { btn.textContent = "Copy link"; }, 2500);
+      }
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(link).then(function () { done(true); }, function () { done(false); });
+        } else { done(false); }
+      } catch (e) { done(false); }
+    });
+  })();
+</script>
+</body>
+</html>
